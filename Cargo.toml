@@ -8,11 +8,12 @@
 name = "lacuna-rs"
 version = "0.1.0"
 edition = "2021"
-authors = ["Ported from LACUNA Chain by Mohamed Alzhrani (0xmaz)"]
+authors = ["Karkas66"]
 description = "Ghost-frame call-stack spoofing via .pdata lacunae + runtime indirect syscalls for Windows x64"
 license = "MIT"
-keywords = ["windows", "syscalls", "edr", "security", "offensive"]
-categories = ["os::windows-apis", "no-std"]
+readme = "README.md"
+keywords = ["windows", "syscalls", "edr", "security", "offensive", "spoofing"]
+categories = ["os::windows-apis"]
 
 # Build as both a normal Rust library and a C-compatible dynamic library
 # so it can be loaded from C/C++/Python projects too.
