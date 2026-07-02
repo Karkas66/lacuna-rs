@@ -13,7 +13,7 @@ documentation = "https://github.com/Karkas66/lacuna-rs"
 description = "Ghost-frame call-stack spoofing via .pdata lacunae + runtime indirect syscalls for Windows x64"
 license = "MIT"
 readme = "README.md"
-keywords = ["windows", "syscalls", "edr", "security", "offensive", "spoofing"]
+keywords = ["windows", "syscalls", "edr", "security", "offensive"]
 categories = ["os::windows-apis"]
 
 # Build as both a normal Rust library and a C-compatible dynamic library
