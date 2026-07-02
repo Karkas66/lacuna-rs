@@ -1,0 +1,61 @@
+#
+# lacuna-rs — Ghost-frame call-stack spoofing + indirect syscalls for Windows x64
+#
+# Ported from LACUNA Chain (C) by Mohamed Alzhrani (0xmaz)
+#
+
+[package]
+name = "lacuna-rs"
+version = "0.1.0"
+edition = "2021"
+authors = ["Ported from LACUNA Chain by Mohamed Alzhrani (0xmaz)"]
+description = "Ghost-frame call-stack spoofing via .pdata lacunae + runtime indirect syscalls for Windows x64"
+license = "MIT"
+keywords = ["windows", "syscalls", "edr", "security", "offensive"]
+categories = ["os::windows-apis", "no-std"]
+
+# Build as both a normal Rust library and a C-compatible dynamic library
+# so it can be loaded from C/C++/Python projects too.
+[lib]
+name = "lacuna"
+crate-type = ["rlib", "cdylib", "staticlib"]
+
+[features]
+default = ["syscalls", "inject"]
+
+# ── Core scanning primitives (PE parsing, ghost/gadget scanning) ─────────────
+# Always compiled — no Win32 calls beyond GetModuleHandle/GetProcAddress.
+
+# ── Indirect syscall engine (SSN resolution + JIT stub emission) ─────────────
+# This is the "better syscalls-rs" layer: runtime SSN resolution, per-function
+# syscall;ret targeting, no build-script SSN table.
+syscalls = []
+
+# ── VEH + hardware-breakpoint parameter encryption ───────────────────────────
+veh = ["syscalls"]
+
+# ── LACUNA stack-spoofing chain (ghost frames, BYOUD-MF, stomp) ──────────────
+# WARNING: requires -C force-frame-pointers=yes in the consuming crate's
+# .cargo/config.toml.  See README.
+stack-spoof = ["syscalls", "veh"]
+
+# ── Section-based APC injection orchestration ───────────────────────────────
+inject = ["syscalls"]
+
+# ── no_std support (alloc only) ──────────────────────────────────────────────
+# When enabled, the crate does not link std.  Useful for shellcode payloads.
+# Currently experimental — some APIs fall back to std when available.
+no-std = []
+
+[dependencies]
+litcrypt2 = "0.1.3"
+
+[profile.release]
+opt-level = 2
+codegen-units = 1
+panic = "abort"
+lto = true
+
+[profile.dev]
+opt-level = 0
+codegen-units = 1

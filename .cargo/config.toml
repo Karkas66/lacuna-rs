@@ -1,0 +1,13 @@
+# lacuna-rs build configuration
+#
+# The `stack-spoof` feature requires frame pointers so that `stomp_plant()`
+# can walk the frame chain via `mov rbp -> [rbp]`.  This is set here for
+# the crate itself; consuming crates must replicate this in their own
+# .cargo/config.toml.
+
+[build]
+rustflags = ["-C", "force-frame-pointers=yes"]
+
+# Default to the MSVC toolchain on Windows.
+[target.x86_64-pc-windows-msvc]
+linker = "rust-lld"
