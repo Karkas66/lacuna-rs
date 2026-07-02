@@ -9,6 +9,7 @@ name = "lacuna-rs"
 version = "0.1.0"
 edition = "2021"
 authors = ["Karkas66"]
+documentation = "https://github.com/Karkas66/lacuna-rs"
 description = "Ghost-frame call-stack spoofing via .pdata lacunae + runtime indirect syscalls for Windows x64"
 license = "MIT"
 readme = "README.md"
